@@ -3,7 +3,7 @@ import { mapTmdbImageUrl } from '../utils/image'
 
 interface EpisodeItemProps {
 	episode: Episode
-	onSelect: (videoId: string) => void
+	onSelect: (videoId: string, subtitleId: string | null) => void
 }
 
 export const EpisodeItem = ({ episode, onSelect }: EpisodeItemProps) => {
@@ -11,7 +11,7 @@ export const EpisodeItem = ({ episode, onSelect }: EpisodeItemProps) => {
 		<div
 			id={`${episode.id}`}
 			className="cursor-pointer rounded-lg border border-transparent p-1.5 transition-all hover:border-neutral-400 hover:bg-neutral-800"
-			onClick={() => onSelect(episode.video_id)}
+			onClick={() => onSelect(episode.video_id, episode.subtitle_id)}
 		>
 			<h5 className="text-xs font-light text-neutral-400">
 				{episode.series.title} {episode.season.name}

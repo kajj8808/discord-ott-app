@@ -8,6 +8,7 @@ import { EpisodeItem } from '../components/episode-item'
 export const Activity = () => {
 	const [appMode, setAppMode] = useSyncState<'list' | 'watch'>('list', ['app-mode', discordSdk.channelId])
 	const [videoId, setVideoId] = useSyncState<string | null>(null, ['video-id', discordSdk.channelId])
+	const [subtitleId, setSubtitleId] = useSyncState<string | null>(null, ['subtitle-id', discordSdk.channelId])
 
 	const [episodes, setEpisodes] = useState<Episode[]>([])
 
@@ -23,9 +24,10 @@ export const Activity = () => {
 		fetchEpisodes()
 	}, [])
 
-	const startWatchMode = (videoId: string) => {
+	const startWatchMode = (videoId: string, subtitleId: string | null) => {
 		setVideoId(videoId)
 		setAppMode('watch')
+		setSubtitleId(subtitleId)
 	}
 
 	const closeWatchMode = () => {
@@ -57,7 +59,7 @@ export const Activity = () => {
 							</svg>
 						</button>
 					</div>
-					<VideoPlayer src={`/video/${videoId}`} />
+					<VideoPlayer videoSrc={`/video/${videoId}`} subtitleSrc={`/subtitle/${subtitleId}`} />
 				</div>
 			)}
 		</div>

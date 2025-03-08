@@ -2,7 +2,12 @@ import { useSyncState } from '@robojs/sync'
 import React, { useEffect, useRef, useState } from 'react'
 import { discordSdk } from '../hooks/useDiscordSdk'
 
-const VideoPlayer = ({ src }: { src: string }) => {
+interface VideoPlayerProps {
+	videoSrc: string
+	subtitleSrc?: string
+}
+
+const VideoPlayer = ({ videoSrc, subtitleSrc }: VideoPlayerProps) => {
 	const videoRef = useRef<HTMLVideoElement>(null)
 	const containerRef = useRef<HTMLDivElement>(null)
 
@@ -82,7 +87,8 @@ const VideoPlayer = ({ src }: { src: string }) => {
 				className="aspect-video h-screen w-full"
 				onClick={onToggleButtonClick}
 			>
-				<source src={src} type="video/mp4" />
+				<source src={videoSrc} type="video/mp4" />
+				<track label="Korean" kind="subtitles" lang="kr" src={subtitleSrc} default />
 			</video>
 			<div className="fixed bottom-0 flex h-32 w-full items-center gap-3 px-10 opacity-0 transition-all group-hover:opacity-100">
 				<button onClick={onToggleButtonClick} className="relative">
